@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Link & clone: chain link with a plus badge for the clone (duplicate). -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+     fill="none" stroke="#1f6feb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M9 13a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1.5 1.5"/>
+  <path d="M13 11a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1.5-1.5"/>
+  <line x1="18.5" y1="15.5" x2="18.5" y2="21.5"/>
+  <line x1="15.5" y1="18.5" x2="21.5" y2="18.5"/>
+</svg>

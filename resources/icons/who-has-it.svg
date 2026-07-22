@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Who has it?: a padlock holding a person (who currently owns the lock). -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+     fill="none" stroke="#1f6feb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="10" width="18" height="11" rx="2" ry="2"/>
+  <path d="M7 10V7a5 5 0 0 1 10 0v3"/>
+  <circle cx="12" cy="14" r="1.6"/>
+  <path d="M9 19a3 3 0 0 1 6 0"/>
+</svg>

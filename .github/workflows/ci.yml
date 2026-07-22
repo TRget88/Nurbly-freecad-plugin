@@ -1,0 +1,49 @@
+# CI for the freecad-nurbly addon.
+#
+# Deliberately minimal: it exercises the pure-logic parts of the addon that do
+# NOT need FreeCAD. The unit tests import only the `nurbly.*` package (never
+# `nurbly.host`, which requires a running FreeCAD) and pull in no third-party
+# pip packages, so a stock CPython is all we install. No FreeCAD, no extra
+# third-party Actions.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repo. setup-python then puts a `python` on PATH.
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Step 1: byte-compile every tracked .py file. Catches syntax errors
+      # across the whole addon (including the FreeCAD-only `nurbly.host`
+      # modules, which compile fine even though they cannot be imported here).
+      - name: Byte-compile all tracked Python files
+        run: python -m py_compile $(git ls-files '*.py')
+
+      # Step 2: run the pure-logic unit tests. Each test self-inserts the addon
+      # root on sys.path (see tests/conftest.py), so no install step is needed.
+      - name: Run unit tests
+        run: cd tests && python -m unittest discover -v
+
+      # Step 3: validate package.xml is well-formed XML and declares the
+      # workbench classname the Addon Manager expects. Fails (non-zero exit)
+      # if the file is malformed or the <classname> is missing/renamed.
+      - name: Validate package.xml
+        run: |
+          python -c "
+          import xml.dom.minidom as minidom
+          doc = minidom.parse('package.xml')  # raises on malformed XML
+          names = [n.firstChild.data.strip()
+                   for n in doc.getElementsByTagName('classname')
+                   if n.firstChild]
+          assert 'NurblyWorkbench' in names, \
+              'package.xml must declare <classname>NurblyWorkbench</classname>; got %r' % names
+          print('package.xml OK: well-formed and declares NurblyWorkbench')
+          "

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Open project: a folder with a down arrow (clone/open an existing project). -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+     fill="none" stroke="#1f6feb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+  <line x1="12" y1="11" x2="12" y2="16"/>
+  <polyline points="9 13.5 12 16.5 15 13.5"/>
+</svg>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<package format="1" xmlns="https://wiki.freecad.org/Package_Metadata">
+  <name>Nurbly</name>
+  <description>Version-control your CAD from inside FreeCAD: check parts and
+    assemblies in and out of a Nurbly repository (clone, pull, per-part lock,
+    commit, push) without leaving the modeller. A thin PDM shell over the nrb
+    CLI.</description>
+  <version>0.1.0</version>
+  <date>2026-07-22</date>
+  <!-- TODO(confirm before index submission): set the real maintainer address
+       (a role address, not a personal email — this file is public). -->
+  <maintainer email="support@nurbly.com">Nurbly</maintainer>
+  <license file="LICENSE">Apache-2.0</license>
+  <url type="repository" branch="main">https://github.com/TRget88/Nurbly-freecad-plugin</url>
+  <url type="readme">https://github.com/TRget88/Nurbly-freecad-plugin/blob/main/README.md</url>
+  <url type="bugtracker">https://github.com/TRget88/Nurbly-freecad-plugin/issues</url>
+  <icon>resources/icons/nurbly.svg</icon>
+  <pythonmin>3.8</pythonmin>
+  <content>
+    <workbench>
+      <name>Nurbly</name>
+      <subdirectory>./</subdirectory>
+      <icon>resources/icons/nurbly.svg</icon>
+      <classname>NurblyWorkbench</classname>
+      <freecadmin>1.0</freecadmin>
+    </workbench>
+  </content>
+</package>
