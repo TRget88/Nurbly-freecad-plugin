@@ -128,29 +128,64 @@ byte-compiled in CI and covered by the manual smoke test).
 
 ## Install
 
-Install through the **FreeCAD Addon Manager** (FreeCAD 1.0+):
+Until this addon is in the **official FreeCAD index** (where you'd just search
+and click), install it **from this repository** as a *custom repository*. It's a
+one-time setup, and FreeCAD makes it fiddlier than it should be — the settings
+are split across two places — so here is the exact path, including the traps.
 
-- **Once indexed:** Tools → Addon Manager → search **Nurbly** → Install →
-  **fully restart** FreeCAD → pick **Nurbly** in the workbench selector.
-- **Before indexing (or to track a branch):** Tools → Addon Manager →
-  Preferences → *Custom repositories* → add this repository's URL + branch →
-  then Install **Nurbly** as above.
+**Requirements:** FreeCAD **1.0 or newer** (it uses the versioned `Mod` dir + the
+managed addon loader) and the **`nrb` CLI** (see [The `nrb` CLI](#the-nrb-cli)).
 
-The addon ships a `package.xml`, so the Addon Manager **registers** it and the
-managed loader runs the workbench. A *manual* copy into `Mod/` is deliberately
-**not** the install path: for an UNregistered add-on the presence of a
-`package.xml` routes FreeCAD 1.0+ through its managed loader, which only runs
-Addon-Manager-registered add-ons and skips the root `InitGui.py` — so a manual
-copy would silently fail to register.
+### Step 1 — Register this repo (in Preferences, NOT the Addon Manager gear)
+
+The custom-repository setting lives in FreeCAD's **global Preferences**, *not* in
+the gear/⚙ menu inside the Addon Manager window (that gear only has "Open addons
+folder" / "Open python dependencies").
+
+1. Menu bar → **Edit → Preferences…**  (on macOS: **FreeCAD → Preferences**).
+2. In the Preferences **left sidebar**, scroll to and click **Addon Manager**
+   (puzzle-piece icon).
+3. Find the **Custom repositories** table → **Add**:
+   - **Repository URL:** `https://github.com/TRget88/Nurbly-freecad-plugin`
+     _(the trailing `.git` is optional — either form works)_
+   - **Branch:** `main`  — **required. Do not leave it blank**, or FreeCAD fetches
+     nothing and the addon never appears.
+4. Click **OK** to close Preferences.
+
+### Step 2 — Install it
+
+5. Open **Tools → Addon manager**. If it was already open, **close and reopen it**
+   so it re-fetches with the new repo. Allow it to connect to the internet if asked.
+6. In the **search box** type **`Nurbly`**, select it, and click **Install**.
+7. **Fully restart FreeCAD.**
+8. Pick **Nurbly** from the **workbench dropdown** (top toolbar) — the Nurbly
+   toolbar + menu appear.
+
+### If something goes wrong
+
+- **`Failed to download … received response code 0`** — a transient GitHub/network
+  hiccup in FreeCAD's downloader, **not** a repo problem. **Just retry** (click
+  again / reopen the Addon Manager); it typically succeeds on the next try.
+- **"Nurbly" never shows up** — re-check that the **Branch** is `main`, then close
+  and reopen the Addon Manager. Any real fetch/metadata error is written to
+  **View → Panels → Report view** (enable Log/Warning/Error messages first).
+
+### Don't hand-copy the folder into `Mod/`
+
+This addon ships a `package.xml`. For a **manually-copied** (unregistered) addon,
+FreeCAD 1.0+ routes through its *managed loader*, which only runs
+Addon-Manager-**registered** addons and skips the root `InitGui.py` — so a hand
+copy **silently fails to register**. Always install through the Addon Manager
+(the custom repository above, or the official index later), which registers it.
 
 ### The `nrb` CLI
 
 The plugin shells out to the [`nrb` CLI](https://nurbly.com), which must be
-installed separately. It is located on `PATH` (or `~/.cargo/bin`, or via
-`$NRB_BINARY`); if it can't be found, a first-run file picker asks for the
-binary and remembers the path in `~/.nurbly/nurbly-plugin/config.json`.
-_(Automatic download of `nrb` on first run is planned — see the Addon-Manager
-distribution roadmap.)_
+installed separately — download it from the Nurbly CLI page. It's found on
+`PATH` (or `~/.cargo/bin`, or via `$NRB_BINARY`); if it can't be found, a
+first-run file picker asks for the binary and remembers the path in
+`~/.nurbly/nurbly-plugin/config.json`. _(Automatic download of `nrb` on first
+run is planned.)_
 
 ## Architecture
 

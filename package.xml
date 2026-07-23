@@ -7,8 +7,6 @@
     CLI.</description>
   <version>0.1.0</version>
   <date>2026-07-22</date>
-  <!-- TODO(confirm before index submission): set the real maintainer address
-       (a role address, not a personal email — this file is public). -->
   <maintainer email="support@nurbly.com">Nurbly</maintainer>
   <license file="LICENSE">Apache-2.0</license>
   <url type="repository" branch="main">https://github.com/TRget88/Nurbly-freecad-plugin</url>
